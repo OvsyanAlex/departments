@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5444/departments
+    url: jdbc:postgresql://localhost:5445/departments
     username: admin
     password: admin
   liquibase:
@@ -13,17 +13,21 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: none
   application:
-    name: department # id приложения
+    name: departments # id приложения
+  devtools:
+    restart:
+      enabled: false
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8081/eureka # адрес eureka-server для регистрации сервиса
+      defaultZone: http://localhost:8080/eureka # адрес eureka-server для регистрации сервиса
 
 server:
-  port: 0 # порт будет определяться eureka-server
+  port: 8082 # порт будет определяться eureka-server
 
 logging:
   pattern:
     console: '%C{1.} [%-5level] %d{HH:mm:ss} - %msg%n' # формат логов
+
 

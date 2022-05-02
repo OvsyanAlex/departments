@@ -20,26 +20,27 @@ public class DepartmentService {
         this.mapStructMapper = mapStructMapper;
     }
 
+    public DepartmentDto getDepartmentByName(String name) {
+
+        //ищем департамент по имени, мапим и возвращаем departmentDto
+        Department department = departmentRepository.findDepartmentByName(name);
+        return mapStructMapper.toDepartmentDto(department);
+    }
+
+    // переписать вызов findAll() на запрос по имени департамента и на запрос на наличие родительского департамента
     public DepartmentDto addDepartment(DepartmentDto departmentDto) {
         // ищем все департаменты
         List<Department> departments = departmentRepository.findAll();
 
-        // ищем наличие главного департамента
-        Department mainDepartment = null;
-        for (Department department : departments) {
-            if (department.getParentDepartment().equals(null)) {
-                mainDepartment = department;
-            }
-        }
-
         // проверяем уникальность департамента по имени и по наличию родительского департамента (возможно главный департамент уже есть)
         for (Department department : departments) {
-            if (department.getName().equals(departmentDto.getName()) ||
-                    departmentDto.getParentDepartment().equals(mainDepartment.getParentDepartment())) {
+            if (departmentDto.getName().equals(department.getName()) ||
+                    departmentDto.getParentDepartment().equals(department.getParentDepartment())) {
+                System.out.println("Недопустимые данные departmentDto");
                 return null;
             }
         }
-
+        //сохраняем Department
         Department department = mapStructMapper.toDepartment(departmentDto);
         Department departmentAfterAdd = departmentRepository.save(department);
         return mapStructMapper.toDepartmentDto(departmentAfterAdd);
