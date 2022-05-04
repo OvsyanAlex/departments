@@ -20,19 +20,21 @@ public class DepartmentController {
         return departmentService.addDepartment(departmentDto);
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
+    @Operation(summary = "Просмотр сведений о департаменте")
+    @GetMapping("/{id}")
+    public DepartmentDto getDepartmentById(@PathVariable Long id) {
+        return departmentService.getDepartment(id);
     }
 
-    //    @Operation(summary = "Просмотр сведений о департаменте")
-//    @GetMapping("/{id}")
-//    public DepartmentDto getDepartmentById(@PathVariable Long id) {
-//        return departmentService.getDepartment(id);
-//    }
     @Operation(summary = "Поиск департамента по имени")
     @GetMapping("/{name}/search")
     public DepartmentDto getDepartmentByName(@PathVariable String name) {
         return departmentService.getDepartmentByName(name);
+    }
+
+    @Operation(summary = "Удаление департамента")
+    @DeleteMapping("/{departmentName}/delete")
+    public void deleteDepartment(@PathVariable String departmentName) {
+        departmentService.deleteDepartment(departmentName);
     }
 }
