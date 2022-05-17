@@ -4,16 +4,15 @@ spring:
     username: admin
     password: admin
   liquibase:
-    change-log: classpath:db/changelog/changelog-master.yaml
+    change-log: classpath:db/changelog/changelog-master-departments.yaml
     enabled: true
   jpa:
-    properties.javax.persistence.validation.mode: none
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       ddl-auto: none
   application:
-    name: departments # id приложения
+    name: departments
   devtools:
     restart:
       enabled: false
@@ -21,13 +20,15 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8080/eureka # адрес eureka-server для регистрации сервиса
+      defaultZone: http://localhost:8761/eureka
 
 server:
-  port: 8082 # порт будет определяться eureka-server
+  port: 8082
 
 logging:
   pattern:
-    console: '%C{1.} [%-5level] %d{HH:mm:ss} - %msg%n' # формат логов
+    console: '%C{1.} [%-5level] %d{HH:mm:ss} - %msg%n'
 
-
+feign:
+  circuitbreaker:
+    enabled: true

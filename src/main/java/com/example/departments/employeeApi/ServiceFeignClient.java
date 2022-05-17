@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "employeeApi", url = "http://localhost:8083")
-public interface EmployeeApi {
+@FeignClient(name = "employeeApi", url = "http://localhost:8083", fallback = FallbackClass.class)
+public interface ServiceFeignClient {
     @GetMapping( "employee/{departmentName}/searcher")
     List<Employee> getEmployees(@PathVariable String departmentName);
 }

@@ -10,11 +10,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class EmployeeController {
-    private final EmployeeApi employeeApi;
+    private final ServiceFeignClient serviceFeignClient;
 
     @GetMapping(
             "/employee/{departmentName}/searcher")
     public List<Employee> getDepartment(@PathVariable String departmentName) {
-        return employeeApi.getEmployees(departmentName);
+        return serviceFeignClient.getEmployees(departmentName);
     }
 }
